@@ -20,7 +20,8 @@ pool.connect()
 
 // POST /api/transfer — save a fiat_in or fiat_out record
 app.post("/api/transfer", async (req, res) => {
-  const { type, from, to, amount, reference, txHash, token, network } = req.body;
+  const { type, from, to, amount, reference, txHash, token, network,
+          fiat_amount, fiat_currency, fx_rate } = req.body;
 
   if (!type || !from || !amount || !token || !network) {
     return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -31,9 +32,11 @@ app.post("/api/transfer", async (req, res) => {
 
   try {
     await pool.query(
-      `INSERT INTO transfers (type, "from", "to", amount, reference, tx_hash, token, network)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-      [type, from, to || null, amount, reference || "", txHash || null, token, network]
+      `INSERT INTO transfers (type, "from", "to", amount, reference, tx_hash, token, network,
+                              fiat_amount, fiat_currency, fx_rate)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      [type, from, to || null, amount, reference || "", txHash || null, token, network,
+       fiat_amount || null, fiat_currency || null, fx_rate || null]
     );
     res.status(201).json({ success: true, message: `✅ ${type} transfer logged` });
   } catch (err) {

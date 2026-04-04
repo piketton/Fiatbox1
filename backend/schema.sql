@@ -7,11 +7,14 @@ CREATE TABLE IF NOT EXISTS transfers (
   "to"         VARCHAR(42)  DEFAULT NULL,
   amount       VARCHAR(50)  NOT NULL,
   reference    TEXT         DEFAULT '',
-  tx_hash      VARCHAR(66)  DEFAULT NULL,
-  token        VARCHAR(10)  NOT NULL,
-  network      VARCHAR(20)  NOT NULL,
-  created_at   TIMESTAMP    DEFAULT NOW(),
-  updated_at   TIMESTAMP    DEFAULT NOW()
+  tx_hash       VARCHAR(66)    DEFAULT NULL,
+  token         VARCHAR(10)    NOT NULL,
+  network       VARCHAR(20)    NOT NULL,
+  fiat_amount   NUMERIC(18,4)  DEFAULT NULL,
+  fiat_currency VARCHAR(3)     DEFAULT NULL,
+  fx_rate       NUMERIC(18,6)  DEFAULT NULL,
+  created_at    TIMESTAMP      DEFAULT NOW(),
+  updated_at    TIMESTAMP      DEFAULT NOW()
 );
 
 CREATE TABLE IF NOT EXISTS subscriptions (

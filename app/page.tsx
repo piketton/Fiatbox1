@@ -27,13 +27,18 @@ function createFish(
   direction: "ltr" | "rtl",
   color: string,
   canvasW: number,
-  canvasH: number
+  canvasH: number,
+  zone: "top" | "bottom"
 ): Fish {
-  const isUpstream = direction === "rtl"; // yellow, swimming against current
+  const isUpstream = direction === "rtl";
+  const bandH = canvasH * 0.18; // height of each band
+  const baseY = zone === "top"
+    ? randomBetween(18, bandH)
+    : randomBetween(canvasH - bandH, canvasH - 18);
   return {
     id,
     x: direction === "ltr" ? randomBetween(-200, -60) : randomBetween(canvasW + 60, canvasW + 220),
-    baseY: randomBetween(40, canvasH - 40),
+    baseY,
     phase: randomBetween(0, Math.PI * 2),
     waveAmp: isUpstream ? randomBetween(12, 22) : randomBetween(4, 10), // upstream fish fight harder
     waveFreq: isUpstream ? randomBetween(0.04, 0.07) : randomBetween(0.015, 0.03),
@@ -68,7 +73,7 @@ export default function Landing() {
     resize();
     window.addEventListener("resize", resize);
 
-    function spawnFish(forceDir?: "ltr" | "rtl") {
+    function spawnFish(forceDir?: "ltr" | "rtl", forceZone?: "top" | "bottom") {
       if (!canvas) return;
       const id = nextIdRef.current++;
       const ltrCount = fishRef.current.filter(f => f.direction === "ltr").length;
@@ -77,19 +82,19 @@ export default function Landing() {
       const dir = forceDir ?? (ltrCount < 12 ? "ltr" : rtlCount < 4 ? "rtl" : null);
       if (!dir) return;
 
+      const zone = forceZone ?? (Math.random() < 0.5 ? "top" : "bottom");
       const color = dir === "ltr" ? "#4ade80" : "#facc15";
-      fishRef.current.push(createFish(id, dir, color, canvas.width, canvas.height));
+      fishRef.current.push(createFish(id, dir, color, canvas.width, canvas.height, zone));
     }
 
-    // Stagger initial spawn across the screen
+    // Stagger initial spawn spread across the screen
     for (let i = 0; i < 12; i++) {
-      spawnFish("ltr");
-      // spread them across screen initially
+      spawnFish("ltr", i < 6 ? "top" : "bottom");
       const f = fishRef.current[fishRef.current.length - 1];
       f.x = randomBetween(-100, canvas.width + 100);
     }
     for (let i = 0; i < 4; i++) {
-      spawnFish("rtl");
+      spawnFish("rtl", i < 2 ? "top" : "bottom");
       const f = fishRef.current[fishRef.current.length - 1];
       f.x = randomBetween(-100, canvas.width + 100);
     }
