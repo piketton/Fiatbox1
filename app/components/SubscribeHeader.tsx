@@ -26,6 +26,7 @@ type Step = "info" | "form" | "paying" | "done";
 
 export default function SubscribeHeader() {
   const [open, setOpen] = useState(false);
+  const [howOpen, setHowOpen] = useState(false);
   const [step, setStep] = useState<Step>("info");
   const [sub, setSub] = useState<SubStatus | null>(null);
 
@@ -133,7 +134,13 @@ export default function SubscribeHeader() {
   return (
     <>
       {/* Header bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-end items-center px-4 py-2 bg-white/80 backdrop-blur-sm border-b border-[#c9d9ee]">
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-end items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border-b border-[#c9d9ee]">
+        <button
+          onClick={() => setHowOpen(true)}
+          className="text-xs font-semibold px-4 py-2 rounded-full border border-[#1a56a0] bg-[#1a56a0] text-white hover:bg-[#154491] transition-all"
+        >
+          How to use
+        </button>
         <button
           onClick={openModal}
           className={`text-xs font-semibold px-4 py-2 rounded-full border transition-all ${
@@ -142,11 +149,42 @@ export default function SubscribeHeader() {
               : "bg-[#1a56a0] border-[#1a56a0] text-white hover:bg-[#154491]"
           }`}
         >
-          {isActive && !expired ? `✓ Subscribed · ${daysLeft}d left` : "Join & Get Rewards"}
+          {isActive && !expired ? `✓ Subscribed · ${daysLeft}d left` : "Subscribe & Get Rewards"}
         </button>
       </div>
 
       <div className="h-10" />
+
+      {/* How to use modal */}
+      {howOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
+          onClick={(e) => { if (e.target === e.currentTarget) setHowOpen(false); }}
+        >
+          <div className="bg-white rounded-2xl border border-[#c9d9ee] w-full max-w-sm shadow-lg overflow-hidden">
+            <div className="bg-[#1a56a0] px-6 py-5 flex items-center justify-between">
+              <h2 className="text-white text-lg font-bold">How to use</h2>
+              <button onClick={() => setHowOpen(false)} className="text-[#a8c8f0] hover:text-white text-2xl leading-none">×</button>
+            </div>
+            <div className="px-6 py-5 space-y-4">
+              <div className="flex items-center gap-3">
+                <span className="text-base font-semibold text-[#F6851B] ml-11">Connect your MetaMask</span>
+              </div>
+              {[
+                { step: "P1", label: "Enter cash ↔ stablecoin terms" },
+                { step: "P2", label: "Scan QR and complete the trade" },
+              ].map(({ step, label }) => (
+                <div key={step} className="flex items-center gap-3">
+                  <span className="w-8 h-8 rounded-full bg-[#1a56a0] text-white text-xs font-bold flex items-center justify-center shrink-0">
+                    {step}
+                  </span>
+                  <span className="text-sm text-[#0d2948] font-medium">{label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {open && (
         <div
@@ -281,3 +319,4 @@ export default function SubscribeHeader() {
     </>
   );
 }
+
