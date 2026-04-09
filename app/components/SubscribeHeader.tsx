@@ -157,7 +157,7 @@ export default function SubscribeHeader() {
             {/* Modal header */}
             <div className="bg-[#1a56a0] px-6 py-5 flex items-center justify-between sticky top-0">
               <div>
-                <h2 className="text-white text-lg font-bold">Subscribe & Get Rewards</h2>
+                <h2 className="text-white text-lg font-bold">Join & Get Rewards</h2>
                 <p className="text-[#a8c8f0] text-xs mt-0.5">10 POL · Weekly rewards</p>
               </div>
               <button onClick={closeModal} className="text-[#a8c8f0] hover:text-white text-2xl leading-none">×</button>
