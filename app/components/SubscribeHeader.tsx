@@ -142,7 +142,7 @@ export default function SubscribeHeader() {
               : "bg-[#1a56a0] border-[#1a56a0] text-white hover:bg-[#154491]"
           }`}
         >
-          {isActive && !expired ? `✓ Subscribed · ${daysLeft}d left` : "Subscribe & Get Rewards"}
+          {isActive && !expired ? `✓ Subscribed · ${daysLeft}d left` : "Join & Get Rewards"}
         </button>
       </div>
 
