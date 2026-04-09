@@ -190,37 +190,49 @@ export default function Landing() {
       />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center w-full max-w-sm">
-        {/* Header */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold text-[#0d2948] tracking-tight">FIATBOX</h1>
-          <p className="text-[#5a7a9f] mt-2 text-sm">Polygon · USDT · USDC · EURC</p>
-        </div>
+      <div className="relative z-10 flex items-center w-full">
 
-        {/* Card */}
-        <div className="bg-white/90 border border-[#c9d9ee] rounded-2xl p-8 w-full shadow-sm backdrop-blur-sm">
-          <p className="text-xs font-semibold text-[#5a7a9f] uppercase tracking-widest mb-5 text-center">
-            What would you like to do?
-          </p>
+        {/* Left: spacer */}
+        <div className="flex-1" />
 
-          <div className="space-y-3">
-            <button
-              onClick={() => router.push("/fiat-in")}
-              className="w-full bg-[#1a56a0] hover:bg-[#154491] text-white font-semibold py-4 px-6 rounded-xl transition-all text-base"
-            >
-              Receive stablecoin
-            </button>
-
-            <button
-              onClick={() => router.push("/fiat-out")}
-              className="w-full bg-white hover:bg-[#eef4fb] text-[#1a56a0] font-semibold py-4 px-6 rounded-xl border border-[#c9d9ee] transition-all text-base"
-            >
-              Cash out
-            </button>
+        {/* Center: original vertical stack */}
+        <div className="flex flex-col items-center w-full max-w-sm">
+          {/* Header */}
+          <div className="mb-10 text-center">
+            <h1 className="text-4xl font-extrabold text-[#0d2948] tracking-tight">FIATBOX</h1>
+            <p className="text-[#5a7a9f] mt-2 text-sm">Polygon · USDT · USDC · EURC</p>
           </div>
+
+          {/* Card */}
+          <div className="bg-white/90 border border-[#c9d9ee] rounded-2xl p-8 w-full shadow-sm backdrop-blur-sm">
+            <p className="text-xs font-semibold text-[#5a7a9f] uppercase tracking-widest mb-5 text-center">
+              What would you like to do?
+            </p>
+
+            <div className="space-y-3">
+              <button
+                onClick={() => router.push("/fiat-in")}
+                className="w-full bg-[#1a56a0] hover:bg-[#154491] text-white font-semibold py-4 px-6 rounded-xl transition-all text-base"
+              >
+                Receive stablecoin
+              </button>
+
+              <button
+                onClick={() => router.push("/fiat-out")}
+                className="w-full bg-white hover:bg-[#eef4fb] text-[#1a56a0] font-semibold py-4 px-6 rounded-xl border border-[#c9d9ee] transition-all text-base"
+              >
+                Cash out
+              </button>
+            </div>
+          </div>
+
+          <p className="text-xs text-[#5a7a9f] mt-8">Cash in. Stablecoins out. The P2P ATM for a digital world</p>
+          <p className="text-xs text-[#5a7a9f] mt-1">Powered by Polygon Network</p>
         </div>
 
-        <p className="text-xs text-[#5a7a9f] mt-8">Powered by Polygon Network</p>
+        {/* Right: spacer */}
+        <div className="flex-1" />
+
       </div>
     </div>
   );
